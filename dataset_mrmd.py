@@ -489,7 +489,7 @@ def train_supervised_embedding_model(cat_idx_array: np.ndarray,
     best_model_state = None
 
     alpha = 0.9
-    beta  = 1.0
+    beta  = 0.3
 
     model.train()
     for epoch in range(n_epochs):
