@@ -10,17 +10,17 @@ import os
 import pdb 
 
 methods = [
- 'median',
- 'softimpute',
- 'gain',
- 'sklearn_missforest',
- 'most_frequent',
- 'mice',
- 'EM',
- 'miracle',
- 'ice',
- 'mean',
- 'miwae',
+#  'median',
+#  'softimpute',
+#  'gain',
+#  'sklearn_missforest',
+#  'most_frequent',
+#  'mice',
+#  'EM',
+#  'miracle',
+#  'ice',
+#  'mean',
+#  'miwae',
  'hyperimpute',
  ]
 
@@ -37,7 +37,7 @@ parser.add_argument('-benchmark_mask_ratio', action='store_true', help='Benchmar
 
 args = parser.parse_args()
 
-datanames = ['bean', 'california', 'adult', 'beijing', 'default', 'gesture', 'letter', 'magic', 'news', 'shoppers'] 
+datanames = ['stroke'] 
 
 mask_type = args.mask_type
 mask_num = args.mask_num
@@ -47,7 +47,7 @@ benchmark_mask_ratio = args.benchmark_mask_ratio
 
 if benchmark_sample_size:
     subset_idx = get_subset_idx(total_num=29229, target_num=[1000, 6000, 11000, 16000]) #target_num need to be increase order
-    methods = ['hyperimpute', 'EM', 'sklearn_missforest']
+    methods = ['hyperimpute']
     mask_num = 3
 
 for method in methods:
@@ -60,11 +60,11 @@ for method in methods:
         assert args.mask_type == 'MCAR', 'Benchmark sample size only supports MCAR mask.'
     
     if benchmark_mask_ratio:
-        datanames = ['news', 'adult', 'beijing', 'default']
+        datanames = ['stroke']
     elif benchmark_sample_size:
-        datanames = ['beijing']
+        datanames = ['stroke']
     else:
-        datanames = ['bean', 'adult', 'beijing', 'california', 'default', 'gesture', 'letter', 'magic', 'news', 'shoppers']
+        datanames = ['stroke']
         
     for dataname in datanames:
         for missing_rate in missing_rates:
