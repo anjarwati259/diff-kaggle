@@ -365,7 +365,7 @@ class SupervisedLearnableEmbeddingModel(nn.Module):
         self.use_mlp       = use_mlp
 
         if use_mlp:
-            hidden_dim_mlp = max(self.total_emb_dim, int(self.total_emb_dim * mlp_ratio))
+            hidden_dim_mlp = max(self.total_emb_dim, int(self.total_emb_dim * mlp_ratio)) # max(11, int(11 × 1.5)) = 16
             self.mlp = nn.Sequential(
                 nn.Linear(self.total_emb_dim, hidden_dim_mlp),
                 nn.SiLU(),
@@ -379,13 +379,13 @@ class SupervisedLearnableEmbeddingModel(nn.Module):
 
         self.dropout    = nn.Dropout(dropout)
         self.classifier = nn.Sequential(
-            nn.Linear(self.total_emb_dim, hidden_dim),
+            nn.Linear(self.total_emb_dim, hidden_dim), #hidden_dim 256
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Linear(hidden_dim, hidden_dim // 2),
+            nn.Linear(hidden_dim, hidden_dim // 2), #hidden_dim 256/2
             nn.ReLU(),
             nn.Dropout(dropout),
-            nn.Linear(hidden_dim // 2, n_classes)
+            nn.Linear(hidden_dim // 2, n_classes) # hidden_dim 128
         )
 
         self.decoders = nn.ModuleList([
